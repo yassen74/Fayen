@@ -16,12 +16,22 @@ jobs:
       - name: Show project files
         run: ls -la
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: PHP syntax check
+        run: |
+          find . -name "*.php" -exec php -l {} \;
+
       - name: Build Docker image
         run: |
+          IMAGE_TAG=${{ github.sha }}
           if [ -f Dockerfile ]; then
-            docker build -t fayen:ci .
+            docker build -t fayen:$IMAGE_TAG .
           elif [ -f dockerfile ]; then
-            docker build -f dockerfile -t fayen:ci .
+            docker build -f dockerfile -t fayen:$IMAGE_TAG .
           else
-            echo "No Dockerfile found"
+            echo "Dockerfile not found"
           fi
