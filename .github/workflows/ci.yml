@@ -28,6 +28,31 @@ jobs:
         run: |
           find . -name "*.php" -exec php -l {} \;
 
+      # --- Terraform Section ---
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Format Check
+        run: |
+          if [ -d terraform ]; then
+            terraform -chdir=terraform fmt -check
+          else
+            echo "No terraform directory found"
+          fi
+
+      - name: Terraform Init
+        run: |
+          if [ -d terraform ]; then
+            terraform -chdir=terraform init -backend=false
+          fi
+
+      - name: Terraform Validate
+        run: |
+          if [ -d terraform ]; then
+            terraform -chdir=terraform validate
+          fi
+
+      # --- Docker Build ---
       - name: Build Docker image
         run: |
           IMAGE_TAG=${{ github.sha }}
