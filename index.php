@@ -7,7 +7,7 @@ include('./mainInclude/header.php');
 <div class="container-fluid remove-vid-marg home-hero">
   <div class="vid-parent">
     <video id="heroVideo" playsinline webkit-playsinline autoplay muted loop preload="metadata" poster="images/hero-poster.jpg">
-      <source src="video/hero.mp4" type="video/mp4">
+      <source src="video/hero-light.mp4" type="video/mp4">
     </video>
     <img id="heroFallback" src="images/hero-poster.jpg" alt="Hero Background" style="display:none;">
     <div class="vid-overlay"></div>
